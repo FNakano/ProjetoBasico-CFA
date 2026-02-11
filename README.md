@@ -1,6 +1,67 @@
 # ProjetoBasico-CFA
 
-Este guia ensina como o projeto básico do dispositivo que usaremos em CFA foi construído. Ele também contém a imagem do sistema de arquivos do dispositivo. Há ao menos duas maneiras (rotas) de instalar este projeto básico no dispositivo:
+![](./4929270778520341423.jpg)
+
+
+Esta é a documentação do dispositivo que usaremos em CFA durante algum tempo com o objetivo de entender como programar e como construir dispositivos. Existem algumas maneiras para aproveitá-la:
+
+1. Saber quais são as funcionalidades implementadas, em nível bastante abstrato;
+2. Como ligar o dispositivo e acessar suas funcionalidades;
+3. Replicar o dispositivo;
+4. Compreender a estratégia de documentação (ex.: para reaplicá-la para um outro dispositivo);
+5. Compreender em que ordem (ou se existe ordem) para desenvolver este dispositivo;
+6. Compreender como partes do software/hardware funcionam (ex.: para reusar essas partes);
+
+## Quais são as funcionalidades implementadas
+
+O dispositivo está programado para conectar-se a um ponto de acesso WiFi e permitir que, através do navegador web, seja possível:
+  
+- acender/apagar um LED embutido no dispositivo;
+- apresentar mensagens em sua tela;
+- acessar uma interface em linha de comando (CLI) e nela executar comandos Python;
+- criar, ler, gravar, apagar arquivos armazenados no dispositivo; 
+- essas funcionalidades podem ser usadas por vários usuários simultaneamente.
+
+
+## Como ligar o dispositivo e acessar suas funcionalidades
+
+Antes de ligar o dispositivo, criar uma rede WiFi de 2.4GHz com nome **lab8** e senha **lab8arduino**. Isto pode ser feito ajustando um ponto de acesso WiFi ou configurando um telefone celular como hotspot WiFi.
+
+Ligar o dispositivo conectando-o, através do conector USB, a um carregador ou a um computador (talvez seja possível conectar a um telefone celular através de um cabo OTG).
+
+Quando ligado e pronto para operar um número como 192.168.0.6 é mostrado na tela do dispositivo. Caso, depois de ligado por mais de 30 segundos, a tela não apresentar nada, ou ser preenchida com letras, ou apresentar o número 0.0.0.0, há algum problema. Neste ponto, o que é possível fazer com o que se sabe até agora é checar se a rede WiFi foi criada corretamente e reiniciar o dispositivo, desligando-o, esperando uns segundos e religando.
+
+Com o dispositivo ligado e pronto para operar, usar um computador ou telefone celular, abrir o navegador web e digitar o endereço `http://dv01.local:5000/`. Uma tela como a da foto abaixo deve aparecer no navegador:
+  
+![](./Captura%20de%20tela%20de%202026-02-11%2018-55-08.png)
+
+
+As rotas que podem ser acessadas no servidor são:
+
+| rota | efeito no navegador | efeito no dispositivo |
+| --- | --- | --- |
+| / | mostra a página index.html | - |
+| /hello | mostra o texto 'hello from dv01.local' | - |
+| /led | mostra o texto on caso o LED esteja apagado, off caso o LED esteja aceso | - |
+| /led/on | mostra o texto on | apaga o LED |
+| /led/off | mostra o texto off | acende o LED |
+| /message | mostra o texto que está sendo mostrado no display | - |
+| /message?text="xxx" | mostra o texto passado como argumento em 'text' | mostra no display o texto passado como argumento em 'text' |
+| /www/webrepl/webrepl.html | Mostra a página para acesso a interface de comando (REPL) | para conectar, substituir o número da porta de 5000 para 8266 na caixa de texto ao lado do botão connect e, em seguida, apertar o botão|
+
+Experimente as funcionalidades.
+
+## Como replicar o dispositivo
+
+### Materiais e ferramentas
+
+- Computador com acesso à internet e porta USB 
+- Cabo de dados para conectar o computador ao dispositivo
+- Dispositivo: ESP32-C3 supermini com display embutido de 0.42" 
+
+## Como usar o dispositivo
+
+Este guia ensina como o projeto básico do dispositivo que usaremos em CFA foi . Ele também contém a imagem do sistema de arquivos do dispositivo. Há ao menos duas maneiras (rotas) de instalar este projeto básico no dispositivo:
   
 1. Instalar o firmware micropython, instalar `rshell` no desktop, clonar este repositório no desktop, copiar o conteúdo da pasta `src` para o dispositivo;
   - Característica desta maneira: o processo de instalação é mais rápido;
@@ -44,4 +105,14 @@ Como ainda não tenho um dispositivo funcionando, a rota 1 ainda nem está const
 7. Instale o pacote `aiorepl` com o comando `mip.install("aiorepl")` Este pacote implementa o REPL assíncrono. [Captura de tela](./Captura%20de%20tela%20de%202026-02-01%2011-15-42.png)
 8. Instale o pacote `microdot`: No browser do desktop acesse https://microdot.readthedocs.io/en/latest/intro.html , baixe o arquivo `microdot.py` e copie-o para o diretório `/lib` da placa microcontroladora. Este pacote implementa um servidor HTTP assíncrono. [Captura de tela, falha com mip.install](./Captura%20de%20tela%20de%202026-02-01%2011-22-48.png)
 9. Crie, na placa microcontroladora, uma pasta para armazenar conteúdo estático do servidor web (digamos, pasta html) - pode usar Thonny para isso;
+
+### Como as funcionalidades são implementadas
+
+O dispositivo executa programas escritos em Python. Para isso usa o firmware Micropython (https://www.micropython.org). Existem pacotes que implementam:
+
+- servidor HTTP assíncrono(https://microdot.readthedocs.io/en/latest/)
+- interface CLI web (https://github.com/micropython/webrepl)
+- Read Evaluate Print Loop (REPL) assíncrono (https://github.com/micropython/micropython-lib/tree/master/micropython/aiorepl)
+- Entrada/Saída assíncrona (https://docs.micropython.org/en/latest/library/asyncio.html)
+- Comunicação com display OLED (https://github.com/micropython/micropython-esp32/blob/esp32/drivers/display/ssd1306.py) 
 
