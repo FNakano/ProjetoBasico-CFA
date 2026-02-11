@@ -9,4 +9,4 @@ Frequentemente (para mim) ocorrem erros de comunicação ao substituir o firmwar
 ![](./Captura%20de%20tela%20de%202026-01-31%2010-22-37.png)
 
 
-O jeito de contornar é usar Arduino IDE, configurado para programar ESP32, com um sketch básico (bare minimum) e enviá-lo para o ESP. Com isto, `esptool --port /dev/ttyACM0 erase_flash` foi executado sem erros.
+O jeito de contornar é usar Arduino IDE, configurado para programar ESP32, com um sketch básico (bare minimum) e enviá-lo para o ESP. Em o envio terminar com sucesso (ainda não vi ocorrer diferente), `esptool --port /dev/ttyACM0 erase_flash` foi executado sem erros.
