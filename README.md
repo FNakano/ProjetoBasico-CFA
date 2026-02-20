@@ -120,14 +120,17 @@ A ordem é:
 6. Saber como dispositivos podem ser desenvolvidos e que documentação de andamento do projeto foi gerada.
 
 
-## Compreender em que ordem (ou se existe ordem) para desenvolver este dispositivo;
+## Compreender em que ordem (ou se existe ordem) para projetar e desenvolver dispositivos;
 
-Acredito que não exista ordem para desenvolver o dispositivo. Claro que é possível usar técnicas de engenharia (de software e/ou de hardware). Essas técnicas são muito eficazes, quando se sabe o que cada parte faz, o que nem sempre é o caso. 
+Acredito que não exista ordem para projetar e desenvolver dispositivos. Claro que é possível usar técnicas de engenharia (de software e/ou de hardware). Essas técnicas são muito eficazes, quando se sabe o que cada parte faz, o que nem sempre é o caso. 
 
 Quando o projeto é indefinido, convém usar uma parte do tempo buscando componentes e funcionalidades interessantes e anotando o resultado da exploração, talvez, em um diário. Algo parecido foi feito em https://github.com/FNakano/CFA/tree/master/projetos/py-understandSH1106
 
 Quando esta exploração é feita com o objetivo de *construir algo interessante*, em algum momento, somos capazes de compor parte dos elementos buscados, chegando a *algo interessante*. Cabe considerar os requisitos dados por quem encomendou o projeto.
 
+O *interessante* pode ser *algo relevante para uma comunidade científica*, aí estamos falando de pesquisa, revisão sistemática, ...
+
+Também pode ser inspirador ver projetos feitos por outros grupos em anos anteriores em https://github.com/FNakano/CFA há uma relação de projetos de anos anteriores e respectivos links.
 
 ## Compreender como partes do software/hardware funcionam (ex.: para reusar essas partes);
 
