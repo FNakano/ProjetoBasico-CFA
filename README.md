@@ -93,7 +93,7 @@ O projeto básico documentado aqui é composto pelos seguintes pacotes: `display
 
 `lab8.py` contém os comandos que devem ser executados para conexão à rede WiFi.
 
-`httpserver.py` contém as rotas do servidor HTTP e respectivos comandos.
+`httpserver.py` contém as rotas do servidor HTTP e respectivos comandos. O conteúdo estático está na pasta `www`.
 
 `led.py` contém comandos para configuração do LED embutido.
 
