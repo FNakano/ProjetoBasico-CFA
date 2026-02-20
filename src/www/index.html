@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Static File Serving Demo</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <h1>Static File Serving Demo</h1>
+    <img src="www/logo.png" alt="logo">
+    
+    <br><br>Este é um servidor web hospedado em uma placa de 
+    desenvolvimento ESP32 supermini com display OLED embutido.
+    <br><br>Mais informação sobre o projeto básico em 
+    https://github.com/FNakano/ProjetoBasico-CFA
+
+<br>As rotas que podem ser acessadas no servidor são:
+
+<br>| rota | efeito no navegador | efeito no dispositivo |
+<br>| --- | --- | --- |
+<br>| / | mostra a página index.html | - |
+<br>| /hello | mostra o texto 'hello from dv01.local' | - |
+<br>| /led | mostra o texto on caso o LED esteja apagado, off caso o LED esteja aceso | - |
+<br>| /led/on | mostra o texto on | apaga o LED |
+<br>| /led/off | mostra o texto off | acende o LED |
+<br>| /message | mostra o texto que está sendo mostrado no display | - |
+<br>| /message?text="xxx" | mostra o texto passado como argumento em 'text' | mostra no display o texto passado como argumento em 'text' |
+<br>| /www/webrepl/webrepl.html | Mostra a página para acesso a interface de comando (REPL) | para conectar, substituir o número da porta de 5000 para 8266 |
+
+<br><br>O aplicativo é iniciado com o comando `import startsystem` digitado no REPL (Thonny).
+
+  </body>
+</html>

@@ -55,23 +55,99 @@ Experimente as funcionalidades.
 
 ### Materiais e ferramentas
 
-- Computador com acesso à internet e porta USB 
+- Computador com Linux, acesso à internet e porta USB 
 - Cabo de dados para conectar o computador ao dispositivo
 - Dispositivo: ESP32-C3 supermini com display embutido de 0.42" 
 
-## Como usar o dispositivo
+### Procedimento
 
-Este guia ensina como o projeto básico do dispositivo que usaremos em CFA foi . Ele também contém a imagem do sistema de arquivos do dispositivo. Há ao menos duas maneiras (rotas) de instalar este projeto básico no dispositivo:
-  
-1. Instalar o firmware micropython, instalar `rshell` no desktop, clonar este repositório no desktop, copiar o conteúdo da pasta `src` para o dispositivo;
-  - Característica desta maneira: o processo de instalação é mais rápido;
-  - Característica desta maneira: as versões dos pacotes estão congeladas;
-    - presumidamente imune a mudanças de API ou bugs introduzidos em versões mais novas;
-2. Seguir passo a passo a instalação dos pacotes a partir das fontes que usei (que chamarei de fontes originais, mesmo que não sejam);
-  - Característica desta maneira: permite instalar as versões mais atuais dos pacotes;
-  - Característica desta maneira: o processo de instalação é mais demorado;
-  - Característica desta maneira: o processo de instalação é mais detalhado/instrutivo;
-  
+1. Instalar o firmware micropython - veja https://www.micropython.org/download/ESP32_GENERIC_C3/
+   - lembre de dar ao seu usuário acesso à porta USB com o comando `sudo usermod -a -G dialout <username>` (https://support.arduino.cc/hc/en-us/articles/360016495679-Fix-port-access-on-Linux)
+   - as portas existentes são criadas no diretório `/dev` e têm o prefixo tty. Geralmente `ttyACM?` ou `ttyUSB?`;
+2. Testar o envio de comandos python usando a IDE Thonny;
+6. Executar no dispositivo, através do Thonny: `import webrepl_setup`. Isto habilita webREPL (https://github.com/micropython/webrepl)
+5. Sair do Thonny
+2. Instalar `rshell` no desktop - execute `pip3 install rshell` - veja https://github.com/dhylands/rshell
+3. Clonar este repositório no desktop - `git clone https://github.com/FNakano/ProjetoBasico-CFA.git`
+4. Copiar o conteúdo da pasta `src` para o dispositivo;
+   1. Com o dispositivo conectado ao computador através da porta USB, execute `rshell --port /dev/ttyACM0` se necessário, ajuste a porta;
+   2. No rshell execute `cp -r src/* /pyboard`
+5. Reiniciar o dispositivo, deve funcionar como em https://github.com/FNakano/ProjetoBasico-CFA?tab=readme-ov-file#como-ligar-o-dispositivo-e-acessar-suas-funcionalidades
+
+## Como o dispositivo foi feito, como os pacotes e o programa estão organizados
+
+O ESP32-C3 supermini com display embutido de 0.42" 
+é uma placa de desenvolvimento, ou placa microcontroladora, ou placa, ... baseada no microcontrolador ESP32-C3. O microcontrolador contém um processador com arquitetura RISC-V e controladores de periféricos como WiFi, Bluetooth, SPI, I2C, UART, ... (https://documentation.espressif.com/esp32-c3_datasheet_en.pdf). Nos ESP32 os pinos são mapeados através de multiplexes de maneira que a atribuição de pinos pode ser modificada. Essa placa em particular vem com um display OLED com driver SSD1306 que implementa o protocolo I2C, conectado aos pinos 5 e 6 da placa microcontroladora. Também tem um LED conectado ao pino 8.
+
+A placa microcontrolada recebe programas através da porta USB (ié, a placa contém componentes adicionais, conexões e programas que permitem transmissão de dados e programas entre a UART do microcontrolador e a porta USB do computador). Quando o programa transmitido é o firmware MicroPython, este é construído de maneira a controlar o microcontrolador.
+
+MicroPython, como outros Python, executa um *Read Evaluate Print Loop - REPL* que recebe comandos através da UART/porta USB, executa os comandos, envia os resultados pela UART/porta USB em um loop. É peculiar ao MicroPython a organização da memória FLASH que não armazena o MicroPython em um sistema de arquivos. É possível pensar que o sistema operacional tem um console/prompt Python e um sistema de arquivos.
+
+A pessoa que programa o dispositivo usa uma IDE como Thonny para gerenciar os arquivos e editar/executar os programas.
+
+Há dois pacotes Python de importância especial: `boot.py` e `main.py`. Os dois são executados durante o boot do firmware. Primeiro `boot.py` e depois `main.py`. Nesta placa microcontroladora, `boot.py` não pode ser interrompido pela IDE, já `main.py` pode ser interrompido pela IDE.
+
+O projeto básico documentado aqui é composto pelos seguintes pacotes: `display.py`, `lab8.py`, `startsystem.py`, `config.py`, `httpserver.py`, `led.py`, `main.py`. Os outros pacotes podem ou não ser usados por este projeto. Os pacotes `/lib/ssd1306.py`, `/lib/microdot.py` e `aiorepl.py` são usados por este projeto mas não foram escritos no escopo deste projeto. 
+
+`config.py` contém variáveis globais. Algumas podem ser modificadas pelo usuário, outras não. Isto é indicado dentro do arquivo.
+
+`lab8.py` contém os comandos que devem ser executados para conexão à rede WiFi.
+
+`httpserver.py` contém as rotas do servidor HTTP e respectivos comandos.
+
+`led.py` contém comandos para configuração do LED embutido.
+
+`display.py` contém comandos e funções para configurar e usar o display OLED.
+
+`startsystem.py` contém os comandos que agrupam as linhas (threads) de execução - a execução é assíncrona usando `asyncio`. As linhas são o servidor web e o servidor REPL.
+
+`main.py` importa o pacote `startsystem` o que faz o programa executar.
+
+## Compreender a estratégia de documentação
+
+Há vários públicos que podem interessar-se em um projeto. Por exemplo, quem quer apenas saber o que o dispositivo faz, ou quem quer usar o dispositivo, ou quem quer replicar, ou quem quer dar manutenção, ... cada um desses públicos busca documentação de formas diferentes e em ordem/formato diferente.
+
+Até onde consegui alcançar, acredito que existe como organizar a documentação de maneira que esta tenha os assuntos ordenados em ordem crescente de complexidade. Desta maneira a documentação fica organizada e os públicos conseguem escolher bem o que saltar e o que ler da documentação.
+
+A ordem é:
+
+1. Só saber o que o dispositivo faz;
+2. Usar o dispositivo;
+3. Replicar o dispositivo;
+4. Saber como o particular dispositivo foi feito;
+4. Saber como o particular dispositivo foi projetado;
+5. Saber como o particular dispositivo foi documentado;
+6. Saber como dispositivos podem ser desenvolvidos e que documentação de andamento do projeto foi gerada.
+
+
+## Compreender em que ordem (ou se existe ordem) para desenvolver este dispositivo;
+
+Acredito que não exista ordem para desenvolver o dispositivo. Claro que é possível usar técnicas de engenharia (de software e/ou de hardware). Essas técnicas são muito eficazes, quando se sabe o que cada parte faz, o que nem sempre é o caso. 
+
+Quando o projeto é indefinido, convém usar uma parte do tempo buscando componentes e funcionalidades interessantes e anotando o resultado da exploração, talvez, em um diário. Algo parecido foi feito em https://github.com/FNakano/CFA/tree/master/projetos/py-understandSH1106
+
+Quando esta exploração é feita com o objetivo de *construir algo interessante*, em algum momento, somos capazes de compor parte dos elementos buscados, chegando a *algo interessante*. Cabe considerar os requisitos dados por quem encomendou o projeto.
+
+
+## Compreender como partes do software/hardware funcionam (ex.: para reusar essas partes);
+
+### asyncio
+
+https://docs.micropython.org/en/latest/library/asyncio.html
+
+### aiorepl
+
+https://github.com/micropython/micropython-lib/tree/master/micropython/aiorepl
+
+### microdot
+
+https://microdot.readthedocs.io/en/latest/
+
+### display OLED
+
+https://github.com/FNakano/CFA/tree/master/projetos/py-understandSH1106
+
+
 ## Características notáveis (para mim) do dispositivo
 
 Uso um ESP32-C3 super mini com display OLED de 0.42". Abreviando, placa microcontroladora.
@@ -85,34 +161,4 @@ o LED está ligado ao pino 8 (GPIO8), é um LED comum (não é RGB, não é ende
 ## Características notáveis (para mim) do projeto básico
 
 O projeto básico é multithread através de `asyncio`. Com isto, é possível executar servidor HTTP e servidor WebREPL simultaneamente. Com isto, em tese, algumas pessoas podem navegar pelas páginas armazenadas no dispositivo enquanto outras podem modificar/executar programas, simultaneamente. (note as camadas na narrativa)
-
-## Rotas
-
-Como ainda não tenho um dispositivo funcionando, a rota 1 ainda nem está construída. Pretendo escrever o guia para a rota 2 a medida que for programando o dispositivo.
-
-### Rota 1
-
-
-### Rota 2 com comentários
-
-1. As instruções de instalação do micropython na placa microcontroladora também apresentam os programas a instalar no desktop.
-2. Micropython tem uma interface de linha de comando. No jargão, um *Read Evaluate Print Loop - REPL*. Para acessar o REPL do micropython através do desktop, um programa, como Thonny ou, pelo menos um terminal serial, é conveniente.
-3. Organizar os arquivos no sistema de arquivos costuma facilitar o trabalho do programador. Micropython busca pacotes instalados no diretório corrente e no diretório `/lib` (Veja listando o atributo `sys.path` no REPL do Micropython)
-<!--- 4. Uma forma de instalar pacotes na placa microcontroladora é baixando no desktop e copiar/(salvar como) usando Thonny. O (pacote de software) driver de display SSD1306 pode ser baixado de ---> 
-4. Micropython tem um instalador de pacotes, chama-se `mip`. Ele pode instalar pacotes a partir da Internet, desde que haja conexão ativa. De projetos anteriores, tenho o script `lab8.py` que conecta, como cliente, a placa microcontrolada ao wifi de nome `lab8`. Sugestão: se for desenvolver em outros lugares, configure o ponto de acesso wifi desse lugar com uma rede `lab8` ou use o telefone celular como hotspot wifi. Poupará algum tempo.
-5. Instale o pacote `ssd1306` com o comando `mip.install("ssd1306")` [Captura de tela](./Captura%20de%20tela%20de%202026-02-01%2010-59-25.png)
-6. Teste o display importando o pacote `display.py`. Escrevi este pacote quando estava estudando o funcionamento deste display. (https://github.com/FNakano/CFA/blob/master/projetos/py-understandSH1106/src/dispssd1306b.py)
-7. Instale o pacote `aiorepl` com o comando `mip.install("aiorepl")` Este pacote implementa o REPL assíncrono. [Captura de tela](./Captura%20de%20tela%20de%202026-02-01%2011-15-42.png)
-8. Instale o pacote `microdot`: No browser do desktop acesse https://microdot.readthedocs.io/en/latest/intro.html , baixe o arquivo `microdot.py` e copie-o para o diretório `/lib` da placa microcontroladora. Este pacote implementa um servidor HTTP assíncrono. [Captura de tela, falha com mip.install](./Captura%20de%20tela%20de%202026-02-01%2011-22-48.png)
-9. Crie, na placa microcontroladora, uma pasta para armazenar conteúdo estático do servidor web (digamos, pasta html) - pode usar Thonny para isso;
-
-### Como as funcionalidades são implementadas
-
-O dispositivo executa programas escritos em Python. Para isso usa o firmware Micropython (https://www.micropython.org). Existem pacotes que implementam:
-
-- servidor HTTP assíncrono(https://microdot.readthedocs.io/en/latest/)
-- interface CLI web (https://github.com/micropython/webrepl)
-- Read Evaluate Print Loop (REPL) assíncrono (https://github.com/micropython/micropython-lib/tree/master/micropython/aiorepl)
-- Entrada/Saída assíncrona (https://docs.micropython.org/en/latest/library/asyncio.html)
-- Comunicação com display OLED (https://github.com/micropython/micropython-esp32/blob/esp32/drivers/display/ssd1306.py) 
 
