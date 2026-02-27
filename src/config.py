@@ -11,8 +11,10 @@ O que espera-se que esteja neste arquivo:
 """
 
 # User configured global variables (this package users may modify)
-wifi_id = 'lab8'               # nome da rede
-wifi_password = 'lab8arduino'  # senha da rede
+# wifi_id = 'lab8'               # nome da rede
+# wifi_password = 'lab8arduino'  # senha da rede
+wifi_id = 'aula'               # nome da rede
+wifi_password = 'aula1234'  # senha da rede
 myhostname = 'dv01'            # nome do dispositivo
 
 # Program internal global variables (this package users should not modify)

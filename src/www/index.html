@@ -11,22 +11,23 @@
     <br><br>Este é um servidor web hospedado em uma placa de 
     desenvolvimento ESP32 supermini com display OLED embutido.
     <br><br>Mais informação sobre o projeto básico em 
-    https://github.com/FNakano/ProjetoBasico-CFA
+    https://gitdub.com/FNakano/ProjetoBasico-CFA
 
 <br>As rotas que podem ser acessadas no servidor são:
 
-<br>| rota | efeito no navegador | efeito no dispositivo |
-<br>| --- | --- | --- |
-<br>| / | mostra a página index.html | - |
-<br>| /hello | mostra o texto 'hello from dv01.local' | - |
-<br>| /led | mostra o texto on caso o LED esteja apagado, off caso o LED esteja aceso | - |
-<br>| /led/on | mostra o texto on | apaga o LED |
-<br>| /led/off | mostra o texto off | acende o LED |
-<br>| /message | mostra o texto que está sendo mostrado no display | - |
-<br>| /message?text="xxx" | mostra o texto passado como argumento em 'text' | mostra no display o texto passado como argumento em 'text' |
-<br>| /www/webrepl/webrepl.html | Mostra a página para acesso a interface de comando (REPL) | para conectar, substituir o número da porta de 5000 para 8266 |
+<table>
+<tr><th> rota </th><th> efeito no navegador </th><th> efeito no dispositivo </th></tr>
+<tr><td> <a href="/"> / </a> </td><td> mostra a página index.html </td><td> - </td></tr>
+<tr><td> <a href="/hello"> /hello </a></td><td> mostra o texto 'hello from dv01.local' </td><td> - </td></tr>
+<tr><td> <a href="/led"> /led </a></td><td> mostra o texto on caso o LED esteja apagado, off caso o LED esteja aceso </td><td> - </td></tr>
+<tr><td> <a href="/led/on"> /led/on </a></td><td> mostra o texto on </td><td> apaga o LED </td></tr>
+<tr><td> <a href="/led/off"> /led/off </a></td><td> mostra o texto off </td><td> acende o LED </td></tr>
+<tr><td> <a href="/message"> /message </a></td><td> mostra o texto que está sendo mostrado no display </td><td> - </td></tr>
+<tr><td> <a href="/message?text='xxx'"> /message?text="xxx" </a></td><td> mostra o texto passado como argumento em 'text' </td><td> mostra no display o texto passado como argumento em 'text' </td></tr>
+<tr><td> <a href="/www/webrepl/webrepl.html"> /www/webrepl/webrepl.html </a></td><td> Mostra a página para acesso a interface de comando (REPL) </td><td> para conectar, substituir o número da porta de 5000 para 8266 senha: star </td></tr>
+</table>
 
-<br><br>O aplicativo é iniciado com o comando `import startsystem` digitado no REPL (Thonny).
+<br><br>O aplicativo é iniciado com o comando `import startsystem` digitado no REPL (tdonny).
 
   </body>
 </html>

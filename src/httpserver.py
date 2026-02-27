@@ -53,8 +53,9 @@ import display
 # quotes and space but results in non-fatal error "UnicodeError:"
 async def message(request):
   txt=request.args.get('text', None)
+  config.messages=txt
   if txt is not None :
-    display.message([txt])
+    display.message(txt)
   return config.messages
 
 # Static files
