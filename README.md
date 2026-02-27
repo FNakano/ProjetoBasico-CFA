@@ -111,6 +111,17 @@ O projeto básico documentado aqui é composto pelos seguintes pacotes: `display
 
 `main.py` importa o pacote `startsystem` o que faz o programa executar.
 
+![](./callgraph/callgraph.png)
+
+grafo de chamadas gerado com pyan (https://github.com/davidfraser/pyan), convertido para svg com graphviz (dot) e convertido para png com inkscape.
+  
+```
+pyan3 *.py --uses  --colored --grouped --annotated --dot >callgraph.dot
+dot -Tsvg callgraph.dot >callgraph.svg
+
+```
+
+
 ## Compreender a estratégia de documentação
 
 Há vários públicos que podem interessar-se em um projeto. Por exemplo, quem quer apenas saber o que o dispositivo faz, ou quem quer usar o dispositivo, ou quem quer replicar, ou quem quer dar manutenção, ... cada um desses públicos busca documentação de formas diferentes e em ordem/formato diferente.

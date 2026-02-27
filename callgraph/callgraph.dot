@@ -1,0 +1,54 @@
+digraph G {
+    graph [rankdir=TB, clusterrank="local"];
+    subgraph cluster_G {
+
+        graph [style="filled,rounded",fillcolor="#80808018", label=""];
+        boot [label="boot", style="filled", fillcolor="#ffffffb2", fontcolor="#000000", group="0"];
+        config [label="config", style="filled", fillcolor="#ffffffb2", fontcolor="#000000", group="1"];
+        display [label="display", style="filled", fillcolor="#ffffffb2", fontcolor="#000000", group="2"];
+        httpserver [label="httpserver", style="filled", fillcolor="#ffffffb2", fontcolor="#000000", group="3"];
+        lab8 [label="lab8", style="filled", fillcolor="#ffffffb2", fontcolor="#000000", group="4"];
+        led [label="led", style="filled", fillcolor="#ffffffb2", fontcolor="#000000", group="5"];
+        main [label="main", style="filled", fillcolor="#ffffffb2", fontcolor="#000000", group="6"];
+        startsystem [label="startsystem", style="filled", fillcolor="#ffffffb2", fontcolor="#000000", group="7"];
+        webrepl_cfg [label="webrepl_cfg", style="filled", fillcolor="#ffffffb2", fontcolor="#000000", group="8"];
+        subgraph cluster_display {
+
+            graph [style="filled,rounded",fillcolor="#80808018", label="display"];
+            display__message [label="message\n(display.py:21)", style="filled", fillcolor="#f4feccb2", fontcolor="#000000", group="2"];
+        }
+        subgraph cluster_httpserver {
+
+            graph [style="filled,rounded",fillcolor="#80808018", label="httpserver"];
+            httpserver__index [label="index\n(httpserver.py:24)", style="filled", fillcolor="#d6feccb2", fontcolor="#000000", group="3"];
+            httpserver__led [label="led\n(httpserver.py:34)", style="filled", fillcolor="#d6feccb2", fontcolor="#000000", group="3"];
+            httpserver__ledoff [label="ledoff\n(httpserver.py:43)", style="filled", fillcolor="#d6feccb2", fontcolor="#000000", group="3"];
+            httpserver__ledon [label="ledon\n(httpserver.py:38)", style="filled", fillcolor="#d6feccb2", fontcolor="#000000", group="3"];
+            httpserver__ledtowebresponse [label="ledtowebresponse\n(httpserver.py:29)", style="filled", fillcolor="#d6feccb2", fontcolor="#000000", group="3"];
+            httpserver__message [label="message\n(httpserver.py:54)", style="filled", fillcolor="#d6feccb2", fontcolor="#000000", group="3"];
+            httpserver__static [label="static\n(httpserver.py:63)", style="filled", fillcolor="#d6feccb2", fontcolor="#000000", group="3"];
+        }
+        subgraph cluster_startsystem {
+
+            graph [style="filled,rounded",fillcolor="#80808018", label="startsystem"];
+            startsystem__main [label="main\n(startsystem.py:40)", style="filled", fillcolor="#d6ccfeb2", fontcolor="#000000", group="7"];
+        }
+    }
+        display -> config [style="solid", color="#000000"];
+        httpserver -> display [style="solid", color="#000000"];
+        httpserver -> config [style="solid", color="#000000"];
+        httpserver__led -> httpserver__ledtowebresponse [style="solid", color="#000000"];
+        httpserver__ledon -> httpserver__ledtowebresponse [style="solid", color="#000000"];
+        httpserver__ledoff -> httpserver__ledtowebresponse [style="solid", color="#000000"];
+        httpserver__message -> display__message [style="solid", color="#000000"];
+        lab8 -> config [style="solid", color="#000000"];
+        led -> config [style="solid", color="#000000"];
+        main -> startsystem [style="solid", color="#000000"];
+        startsystem -> display__message [style="solid", color="#000000"];
+        startsystem -> lab8 [style="solid", color="#000000"];
+        startsystem -> httpserver [style="solid", color="#000000"];
+        startsystem -> startsystem__main [style="solid", color="#000000"];
+        startsystem -> config [style="solid", color="#000000"];
+        startsystem -> display [style="solid", color="#000000"];
+        startsystem -> led [style="solid", color="#000000"];
+    }
