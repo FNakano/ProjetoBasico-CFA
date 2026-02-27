@@ -22,6 +22,14 @@ O dispositivo está programado para conectar-se a um ponto de acesso WiFi e perm
 - criar, ler, gravar, apagar arquivos armazenados no dispositivo; 
 - essas funcionalidades podem ser usadas por vários usuários simultaneamente.
 
+## Qual é o contexto (de conexão) apresentado na aula
+
+![](./ProjetoBasico-CFA/rede-aula.png)
+
+O dispositivo recebe energia através do seu conector USB (não mostrado na figura) e conecta-se à rede WiFi `aula`. A rede `aula` é suportada por um WiFi Hotspot executado no notebook branco em uma de suas interfaces de rede. Na outra interface de rede o notebook conecta-se a um ponto de acesso WiFi (AP) nas proximidades da sala de aula. O ponto de acesso faz parte da infraestrutura de Internet da escola, esta suporta `eduroam`. Seus dispositivos pessoais (majoritariamente telefones celulares) também conectam-se à infraestrutura de Internet da escola mas não necessariamente ao mesmo AP.
+
+A dúvida que tenho: Nesta configuração de rede, o dispositivo pode ser acessado pelos seus celulares pelo IP? (Já vi que o nome do domínio não é propagado pelo programa de Hotspot do notebook. Não verifiquei se isso pode ser configurado). 
+
 
 ## Como ligar o dispositivo e acessar suas funcionalidades
 
