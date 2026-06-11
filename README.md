@@ -1,5 +1,34 @@
 # ProjetoBasico-CFA
 
+Quando sou atribuído a uma turma da disciplina CFA, apresento o conteúdo da ementa propondo à turma que 
+desenvolva, ié projete, 
+implemente, teste e documente um projeto de dispositivo computacional conectado à Internet. Acredito que essa proposta permita ao estudante explorar com 
+liberdade os elementos tanto da Intenet das Coisas quanto da Robótica, Informática em Saúde e tantas outras áreas mais 
+específicas.
+
+Neste repositório, pretendo armazenar projetos básicos de dispositivos que espero servir como ponto de partida para os 
+projetos que serão desenvolvidos pelos alunos. O uso de outros dispositivos e ferramentas é negociável.
+
+Pretendo que este repositório ocupe menos armazenamento que github.com/FNakano/CFA , por outro lado, pretendo armazenar 
+vários projetos básicos então clonar este repositório implica em copiar muitos arquivos que não serão usados.
+
+Das utilidades, imaginadas por mim, para este repositório destaco:
+
+1. Apresentar contextos de uso de dispositivos;
+2. Apresentar contexto e ferramentas para desenvolvimento de dispositivos;
+3. Apresentar um sensor e um atuador;
+4. Apresentar exemplos de documentação para os dispositivos que serão desenvolvidos; 
+
+A particular finalidade que tenho nesta ocasião (ié desafio) é construir um ambiente de desenvolvimento e documentação em 
+um telefone celular. No momento, uso o editor de texto `nano` dentro de um terminal `termux` em um Galaxy S24FE.
+
+- setup
+  - termux
+    - git
+  - atalhos do nano
+
+ 
+
 ![](./4929270778520341423.jpg)
 
 
