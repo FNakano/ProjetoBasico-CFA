@@ -8,16 +8,19 @@ assuntos). Veja este exemplo:
 * No desktop uso Ubuntu. Para editar textos uso algum editor em modo gráfico (Gedit, Geany, Libre Office Text, ...). A 
 interface com usuário é pensada para ser gráfica com mouse e teclado. Estou bem acostumado às teclas de acento, modo 
 (CTRL, ALT, 
-Win) e o clipboard dessa GUI. Decidi testar o telefone celular com ambiente de desktop. No caso, o telefone é um Galaxy 
+Win) e o clipboard dessa GUI. Decidi testar o telefone celular com ambiente de desktop. No caso, o telefone é um 
+Galaxy 
 S24FE e o ambiente é DeX. Escolhi um emulador de terminal (`Termux`) e o editor que vem pré-instalado (`nano`). É um 
 outro hardware com outro ambiente e outra interface. Conectei os mesmos teclado e mouse mas como o sistema operacional 
 que dá suporte é outro os atalhos são diferentes, os acentos são diferentes, ...*
 
-Neste arquivo vou deixar anotados os atalhos de teclado que *funcionaram* no contexto atual (S24FE, Android 16, OneUI 8, 
+Neste arquivo vou deixar anotados os atalhos de teclado que *funcionaram* no contexto atual (S24FE, Android 16, 
+OneUI 8, 
 teclado Samsung, modo DeX com fio)
 
 Já fica um comentário: nas buscas por soluções, por exemplo, buscar "Como abrir vários arquivos no nano do termux do 
-android" . O primeiro link indicado não me trouxe a informação que eu precisava, porque eu queria criar um novo arquivo. 
+android" . O primeiro link indicado não me trouxe a informação que eu precisava, porque eu queria criar um novo 
+arquivo. 
 Em outras buscas o primeiro link apresenta informação sobre nano no Linux, ... é trabalhoso escrever um documento 
 mostrando o que *funcionou* e a chance do que for mostrado *não funcionar* (em outro Android, em outro modelo de 
 telefone, ...), acredito, é grande... 
@@ -41,7 +44,7 @@ arquivo pode incluir um caminho para ele;
 
 ## 
 
-- Salvar o buffer no arquivo, digitar `CTRL-S`;
+- Salvar o buffer no armazenamento, digitar `CTRL-S`;
   - caso seja um buffer novo, sem associação com um arquivo, abre-se um prompt para digitar o nome, se o nome 
 existir, sobrescreve sem pedir confirmação;
 
@@ -52,7 +55,10 @@ existir, sobrescreve sem pedir confirmação;
 
 ## Abrir um outro arquivo já existente
 
-- Abrir um outro arquivo já existente, digitar `CTRL-R`
+- Abrir um outro arquivo já existente, digitar `CTRL-R`;
+- Informar que deve ser aberto em um novo buffer, digitar `ALT-F`;
+  - !se não fizer isso o conteúdo do arquivo será inserido a partir do cursor no buffer ativo;
+- digitar o nome do arquivo no prompt; 
 - após executar esse comando, há ao menos dois buffers de arquivos;
 
 ## Navegar entre buffers
@@ -60,7 +66,10 @@ existir, sobrescreve sem pedir confirmação;
 - Mostrar próximo buffer, digitar `ALT->` (alt-seta para a direita);
 - Mostrar buffer anterior, digitar `ALT-<` (alt-seta para a esquerda);
 
-## 
+## Undo, Redo
+
+- Undo, digitar ALT-U;
+- Redo, digitar ALT-E;
  
 ## Marcar, Cortar e Colar texto dentro do `nano`
 
@@ -77,8 +86,11 @@ O clipboard do `nano` é separado e não se comunica com o clipboard do Android
 
 ## Copiar texto de outro app para dentro do `nano`
 
-Usar as ferramentas de marcar e copiar do Android e colar digitando `CTRL-SHIFT-V`
+Usar as ferramentas de marcar e copiar do Android e colar digitando `CTRL-ALT-V`
 
+Também é possível usar o long press da tela do celular. Para isso, abrir o celular em modo de touchpad, 
+usar o celular para posicionar o cursor, usar long press para selecionar o texto. Desconheço atalho de teclado
+ou operação com o mouse externo que faça algo equivalente.
 
 ## Ligar/desligar inserção de quebra de linha
 

@@ -7,7 +7,7 @@ liberdade os elementos tanto da Intenet das Coisas quanto da Robótica, Informá
 específicas.
 
 Neste repositório, pretendo armazenar projetos básicos de dispositivos que espero servir como ponto de partida para os 
-projetos que serão desenvolvidos pelos alunos. O uso de outros dispositivos e ferramentas é negociável.
+projetos que serão desenvolvidos pelos alunos. O uso de outros dispositivos e ferramentas é avaliado caso a caso.
 
 Pretendo que este repositório ocupe menos armazenamento que github.com/FNakano/CFA , por outro lado, pretendo armazenar 
 vários projetos básicos então clonar este repositório implica em copiar muitos arquivos que não serão usados.
@@ -19,17 +19,25 @@ Das utilidades, imaginadas por mim, para este repositório destaco:
 3. Apresentar um sensor e um atuador;
 4. Apresentar exemplos de documentação para os dispositivos que serão desenvolvidos; 
 
-A particular finalidade que tenho nesta ocasião (ié desafio) é construir um ambiente de desenvolvimento e documentação em 
+A particular finalidade que tenho nesta ocasião (ié desafio) é construir um ambiente de desenvolvimento e 
+documentação em 
 um telefone celular. No momento, uso o editor de texto `nano` dentro de um terminal `termux` em um Galaxy S24FE.
 
 - setup
-  - termux
-    - git
-  - atalhos do nano
+  - termux (github.com/FNakano/IP-Apostila/tree/main/InstalarTermux)
+    - git [./github.md](./github.md)
+  - atalhos do nano [./nano.md](./nano.md)
 
- 
+O dispositivo apresentado em 2026, que consiste em um ESP32C3 com display OLED embutido, com servidor e cliente web
+com E/S assíncrono está em [./2026](./2026) 
 
 ![](./4929270778520341423.jpg)
+
+O dispositivo que envia dados para Thing Speak está em github.com/FNakano/CFA/tree/master/projetos/py-thingspeak
+
+Passei o dia construindo o trecho acima, algumas referências são externas a este repositório, pretendo ajustar 
+no futuro.
+
 
 
 Esta é a documentação do dispositivo que usaremos em CFA durante algum tempo com o objetivo de entender como programar e como construir dispositivos. Existem algumas maneiras para aproveitá-la:
